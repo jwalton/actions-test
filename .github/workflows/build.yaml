@@ -1,0 +1,27 @@
+name: Build
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force the build to run even if no changes were made.'
+        required: false
+        default: false
+        type: boolean
+  push:
+    branches:
+      - master
+      - release
+    paths-ignore:
+      - '**.md'
+
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: test
+        run: echo dothething ${{ github.event.inputs.force && '--force' || '' }}
