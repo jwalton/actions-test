@@ -11,6 +11,7 @@ on:
     branches:
       - master
       - release
+      - feature/*
     paths-ignore:
       - '**.md'
 
@@ -25,3 +26,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: test
         run: echo dothething ${{ github.event.inputs.force && '--force' || '' }}
+      - name: Save version
+        run: |
+          mkdir -p ./out
+          echo "hello world" > ./out/output.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: output
+          path: out/
