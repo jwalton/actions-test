@@ -11,7 +11,7 @@ on:
     branches:
       - master
       - release
-      - feature/*
+      - feature/**
     paths-ignore:
       - '**.md'
 
@@ -29,7 +29,7 @@ jobs:
       - name: Save version
         run: |
           mkdir -p ./out
-          echo "hello world" > ./out/output.txt
+          echo "hello world2" > ./out/output.txt
       - uses: actions/upload-artifact@v4
         with:
           name: output
